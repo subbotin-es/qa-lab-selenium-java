@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="QA Lab — Smoke" verbose="1">
+
+    <listeners>
+        <listener class-name="es.subbotin.qalab.listeners.ExtentReportsListener"/>
+    </listeners>
+
+    <test name="Smoke">
+        <groups>
+            <run>
+                <include name="smoke"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="es.subbotin.qalab.tests.ButtonsTest"/>
+            <class name="es.subbotin.qalab.tests.FormsTest"/>
+            <class name="es.subbotin.qalab.tests.ModalsTest"/>
+        </classes>
+    </test>
+
+</suite>
