@@ -3,7 +3,7 @@
 [![CI](https://github.com/subbotin-es/qa-lab-selenium-java/actions/workflows/ci.yml/badge.svg)](https://github.com/subbotin-es/qa-lab-selenium-java/actions/workflows/ci.yml)
 
 **Portfolio artefact #3 — Cross-Stack QA Automation Series**
-**Live ExtentReport → [subbotin-es.github.io/qa-lab-selenium-java/extent](https://subbotin-es.github.io/qa-lab-selenium-java/extent/)**
+**Live ExtentReport → [subbotin-es.github.io/qa-lab-selenium-java/extent/report.html](https://subbotin-es.github.io/qa-lab-selenium-java/extent/report.html)**
 
 ---
 
