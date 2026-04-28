@@ -9,13 +9,13 @@ import java.util.Properties;
  */
 public class ConfigReader {
 
-    private static final Properties props = new Properties();
+    private static final Properties PROPS = new Properties();
 
     static {
         try (InputStream in = ConfigReader.class
                 .getClassLoader()
                 .getResourceAsStream("config.properties")) {
-            props.load(in);
+            PROPS.load(in);
         } catch (Exception e) {
             throw new RuntimeException("Cannot load config.properties", e);
         }
@@ -29,7 +29,7 @@ public class ConfigReader {
     public static String getBaseUrl() {
         return System.getenv("BASE_URL") != null
                 ? System.getenv("BASE_URL")
-                : props.getProperty("base.url");
+                : PROPS.getProperty("base.url");
     }
 
     /**
@@ -38,7 +38,7 @@ public class ConfigReader {
      * @return wait timeout as int
      */
     public static int getExplicitWait() {
-        return Integer.parseInt(props.getProperty("explicit.wait", "10"));
+        return Integer.parseInt(PROPS.getProperty("explicit.wait", "10"));
     }
 
     /**
@@ -47,6 +47,6 @@ public class ConfigReader {
      * @return headless flag
      */
     public static boolean isHeadless() {
-        return Boolean.parseBoolean(props.getProperty("headless", "true"));
+        return Boolean.parseBoolean(PROPS.getProperty("headless", "true"));
     }
 }

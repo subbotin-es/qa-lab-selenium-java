@@ -18,7 +18,7 @@ import org.testng.annotations.Listeners;
 public class BaseTest {
 
     /** ThreadLocal ensures each parallel thread has its own driver instance. */
-    private static final ThreadLocal<WebDriver> driverHolder = new ThreadLocal<>();
+    private static final ThreadLocal<WebDriver> DRIVER_HOLDER = new ThreadLocal<>();
 
     /**
      * Returns the WebDriver instance for the current thread.
@@ -26,7 +26,7 @@ public class BaseTest {
      * @return WebDriver instance
      */
     protected static WebDriver getDriver() {
-        return driverHolder.get();
+        return DRIVER_HOLDER.get();
     }
 
     /**
@@ -43,7 +43,7 @@ public class BaseTest {
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--window-size=1920,1080");
-        driverHolder.set(new ChromeDriver(options));
+        DRIVER_HOLDER.set(new ChromeDriver(options));
         getDriver().get(ConfigReader.getBaseUrl() + "/QA-Lab/qa-lab.html");
     }
 
@@ -55,7 +55,7 @@ public class BaseTest {
     public void tearDown() {
         if (getDriver() != null) {
             getDriver().quit();
-            driverHolder.remove();
+            DRIVER_HOLDER.remove();
         }
     }
 }

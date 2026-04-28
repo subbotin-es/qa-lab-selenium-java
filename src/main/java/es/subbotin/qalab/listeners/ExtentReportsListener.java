@@ -15,7 +15,7 @@ import org.testng.ITestResult;
 public class ExtentReportsListener implements ITestListener {
 
     private static ExtentReports extent;
-    private static final ThreadLocal<ExtentTest> testHolder = new ThreadLocal<>();
+    private static final ThreadLocal<ExtentTest> TEST_HOLDER = new ThreadLocal<>();
 
     /**
      * Initialises ExtentReports at suite start.
@@ -44,7 +44,7 @@ public class ExtentReportsListener implements ITestListener {
     @Override
     public void onTestStart(ITestResult result) {
         ExtentTest test = extent.createTest(result.getMethod().getMethodName());
-        testHolder.set(test);
+        TEST_HOLDER.set(test);
     }
 
     /**
@@ -54,7 +54,7 @@ public class ExtentReportsListener implements ITestListener {
      */
     @Override
     public void onTestSuccess(ITestResult result) {
-        testHolder.get().pass("Test passed");
+        TEST_HOLDER.get().pass("Test passed");
     }
 
     /**
@@ -64,7 +64,7 @@ public class ExtentReportsListener implements ITestListener {
      */
     @Override
     public void onTestFailure(ITestResult result) {
-        testHolder.get().fail(result.getThrowable());
+        TEST_HOLDER.get().fail(result.getThrowable());
     }
 
     /**
@@ -74,7 +74,7 @@ public class ExtentReportsListener implements ITestListener {
      */
     @Override
     public void onTestSkipped(ITestResult result) {
-        testHolder.get().skip(result.getThrowable());
+        TEST_HOLDER.get().skip(result.getThrowable());
     }
 
     /**
@@ -93,6 +93,6 @@ public class ExtentReportsListener implements ITestListener {
      * @return ExtentTest instance
      */
     public static ExtentTest getTest() {
-        return testHolder.get();
+        return TEST_HOLDER.get();
     }
 }

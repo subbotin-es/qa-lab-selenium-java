@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+          "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+          "https://checkstyle.org/dtds/configuration_1_3.dtd">
+<!--
+    Enterprise Java style rules for qa-lab-selenium-java.
+    Enforces Javadoc on public API, standard naming, no wildcard imports,
+    and line length. @FindBy annotation lines are excluded from length check.
+-->
+<module name="Checker">
+
+    <property name="severity" value="error"/>
+    <property name="fileExtensions" value="java"/>
+
+    <!-- @FindBy and Javadoc tag lines are excluded from the length check -->
+    <module name="LineLength">
+        <property name="max" value="150"/>
+        <property name="ignorePattern" value="^ *\* *@|\s*@FindBy\("/>
+    </module>
+
+    <!-- Spaces only — no tab characters -->
+    <module name="FileTabCharacter">
+        <property name="eachLine" value="true"/>
+    </module>
+
+    <module name="TreeWalker">
+
+        <!-- ===== Javadoc ===== -->
+        <!-- All public methods must have a Javadoc comment -->
+        <module name="JavadocMethod">
+            <property name="accessModifiers" value="public"/>
+            <property name="allowMissingParamTags" value="true"/>
+            <property name="allowMissingReturnTag" value="true"/>
+        </module>
+        <!-- All public types must have a Javadoc comment -->
+        <module name="JavadocType">
+            <property name="scope" value="public"/>
+        </module>
+
+        <!-- ===== Imports ===== -->
+        <module name="AvoidStarImport"/>
+        <module name="UnusedImports"/>
+        <module name="IllegalImport"/>
+
+        <!-- ===== Naming conventions ===== -->
+        <module name="ConstantName"/>
+        <module name="LocalVariableName"/>
+        <module name="MemberName"/>
+        <module name="MethodName"/>
+        <module name="PackageName"/>
+        <module name="ParameterName"/>
+        <module name="StaticVariableName"/>
+        <module name="TypeName"/>
+
+        <!-- ===== Code quality ===== -->
+        <!-- All control structures must use braces -->
+        <module name="NeedBraces"/>
+        <!-- No empty statements (lone semicolons) -->
+        <module name="EmptyStatement"/>
+        <!-- equals() and hashCode() must be overridden together -->
+        <module name="EqualsHashCode"/>
+        <!-- Use L not l for long literals to avoid confusion with 1 -->
+        <module name="UpperEll"/>
+
+    </module>
+
+</module>
