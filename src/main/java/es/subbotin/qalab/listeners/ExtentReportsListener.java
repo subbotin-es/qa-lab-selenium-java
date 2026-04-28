@@ -22,19 +22,21 @@ public class ExtentReportsListener implements ITestListener {
      *
      * @param context TestNG context
      */
-    @Override
-    public void onStart(ITestContext context) {
-        ExtentSparkReporter spark = new ExtentSparkReporter(
-                "test-output/ExtentReports/report.html");
-        spark.config().setTheme(Theme.DARK);
-        spark.config().setDocumentTitle("QA Lab — Selenium Java Tests");
-        spark.config().setReportName("Cross-Stack Series — Stack 3");
-        extent = new ExtentReports();
-        extent.attachReporter(spark);
-        extent.setSystemInfo("Author", "Evgenii Subbotin");
-        extent.setSystemInfo("Target", "https://subbotin.es/QA-Lab/qa-lab.html");
-        extent.setSystemInfo("Stack", "Selenium 4 + Java 17 + TestNG 7");
-    }
+@Override
+public void onStart(ITestContext context) {
+    String reportPath = System.getenv("EXTENT_REPORT_PATH") != null
+            ? System.getenv("EXTENT_REPORT_PATH")
+            : "test-output/ExtentReports/report.html";
+    ExtentSparkReporter spark = new ExtentSparkReporter(reportPath);
+    spark.config().setTheme(Theme.DARK);
+    spark.config().setDocumentTitle("QA Lab — Selenium Java Tests");
+    spark.config().setReportName("Cross-Stack Series — Stack 3");
+    extent = new ExtentReports();
+    extent.attachReporter(spark);
+    extent.setSystemInfo("Author", "Evgenii Subbotin");
+    extent.setSystemInfo("Target", "https://subbotin.es/QA-Lab/qa-lab.html");
+    extent.setSystemInfo("Stack", "Selenium 4 + Java 17 + TestNG 7");
+}
 
     /**
      * Creates a new test entry in the report.
