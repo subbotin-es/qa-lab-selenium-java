@@ -30,12 +30,13 @@ jobs:
         run: mvn checkstyle:check
 
       - name: Run smoke tests
+        if: success()
         run: mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testng-smoke.xml
         env:
           BASE_URL: https://subbotin.es
 
       - name: Run full regression
-        if: github.ref == 'refs/heads/main'
+        if: success()
         run: mvn test
         env:
           BASE_URL: https://subbotin.es
