@@ -24,9 +24,9 @@ public class ExtentReportsListener implements ITestListener {
      */
 @Override
 public void onStart(ITestContext context) {
-    String reportPath = System.getenv("EXTENT_REPORT_PATH") != null
-            ? System.getenv("EXTENT_REPORT_PATH")
-            : "test-output/ExtentReports/report.html";
+    String reportPath = System.getProperty("extent.report.path") != null
+        ? System.getProperty("extent.report.path")
+        : "test-output/ExtentReports/regression-report.html";
     ExtentSparkReporter spark = new ExtentSparkReporter(reportPath);
     spark.config().setTheme(Theme.DARK);
     spark.config().setDocumentTitle("QA Lab — Selenium Java Tests");

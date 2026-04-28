@@ -30,18 +30,15 @@ jobs:
         run: mvn checkstyle:check
 
       - name: Run smoke tests
-        if: success()
-        run: mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testng-smoke.xml
+        run: mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testng-smoke.xml -Dextent.report.path=test-output/ExtentReports/smoke-report.html
         env:
           BASE_URL: https://subbotin.es
-        EXTENT_REPORT_PATH: test-output/ExtentReports/smoke-report.html
 
       - name: Run full regression
         if: success()
-        run: mvn test
+        run: mvn test -Dextent.report.path=test-output/ExtentReports/regression-report.html
         env:
           BASE_URL: https://subbotin.es
-        EXTENT_REPORT_PATH: test-output/ExtentReports/report.html
 
       - name: Upload ExtentReports artifact
         if: always()
