@@ -4,39 +4,52 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
-import org.testng.ITestContext;
+import org.testng.ISuite;
+import org.testng.ISuiteListener;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
 /**
  * TestNG listener — populates ExtentReports automatically.
- * No manual report.flush() needed in test classes.
+ * ISuiteListener hooks fire once per suite, preventing the report from being
+ * overwritten when testng.xml has multiple test elements.
  */
-public class ExtentReportsListener implements ITestListener {
+public class ExtentReportsListener implements ITestListener, ISuiteListener {
 
     private static ExtentReports extent;
     private static final ThreadLocal<ExtentTest> TEST_HOLDER = new ThreadLocal<>();
 
     /**
-     * Initialises ExtentReports at suite start.
+     * Initialises ExtentReports once per suite.
+     * Path is overridable via -Dextent.report.path for separate smoke/regression reports.
      *
-     * @param context TestNG context
+     * @param suite TestNG suite
      */
-@Override
-public void onStart(ITestContext context) {
-    String reportPath = System.getProperty("extent.report.path") != null
-        ? System.getProperty("extent.report.path")
-        : "test-output/ExtentReports/regression-report.html";
-    ExtentSparkReporter spark = new ExtentSparkReporter(reportPath);
-    spark.config().setTheme(Theme.DARK);
-    spark.config().setDocumentTitle("QA Lab — Selenium Java Tests");
-    spark.config().setReportName("Cross-Stack Series — Stack 3");
-    extent = new ExtentReports();
-    extent.attachReporter(spark);
-    extent.setSystemInfo("Author", "Evgenii Subbotin");
-    extent.setSystemInfo("Target", "https://subbotin.es/QA-Lab/qa-lab.html");
-    extent.setSystemInfo("Stack", "Selenium 4 + Java 17 + TestNG 7");
-}
+    @Override
+    public void onStart(ISuite suite) {
+        String reportPath = System.getProperty("extent.report.path") != null
+                ? System.getProperty("extent.report.path")
+                : "test-output/ExtentReports/regression-report.html";
+        ExtentSparkReporter spark = new ExtentSparkReporter(reportPath);
+        spark.config().setTheme(Theme.DARK);
+        spark.config().setDocumentTitle("QA Lab — Selenium Java Tests");
+        spark.config().setReportName("Cross-Stack Series — Stack 3");
+        extent = new ExtentReports();
+        extent.attachReporter(spark);
+        extent.setSystemInfo("Author", "Evgenii Subbotin");
+        extent.setSystemInfo("Target", "https://subbotin.es/QA-Lab/qa-lab.html");
+        extent.setSystemInfo("Stack", "Selenium 4 + Java 17 + TestNG 7");
+    }
+
+    /**
+     * Flushes report once after all tests in the suite complete.
+     *
+     * @param suite TestNG suite
+     */
+    @Override
+    public void onFinish(ISuite suite) {
+        extent.flush();
+    }
 
     /**
      * Creates a new test entry in the report.
@@ -82,16 +95,6 @@ public void onStart(ITestContext context) {
     @Override
     public void onTestSkipped(ITestResult result) {
         TEST_HOLDER.get().skip(result.getThrowable());
-    }
-
-    /**
-     * Flushes report at suite finish.
-     *
-     * @param context TestNG context
-     */
-    @Override
-    public void onFinish(ITestContext context) {
-        extent.flush();
     }
 
     /**
