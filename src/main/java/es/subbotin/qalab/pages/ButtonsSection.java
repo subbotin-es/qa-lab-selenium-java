@@ -19,16 +19,16 @@ public class ButtonsSection {
     /** Explicit wait configured from config.properties. */
     private final WebDriverWait wait;
 
-    /** Primary-styled button. */
-    @FindBy(css = "#buttons .btn-primary:not([disabled])")
+    /** Primary-styled button — matched by visible text. */
+    @FindBy(xpath = "//section[@id='buttons']//button[normalize-space()='Primary Button']")
     private WebElement primaryButton;
 
-    /** Danger-styled button. */
-    @FindBy(css = "#buttons .btn-danger:not([disabled])")
+    /** Danger-styled button — matched by visible text. */
+    @FindBy(xpath = "//section[@id='buttons']//button[normalize-space()='Danger Button']")
     private WebElement dangerButton;
 
-    /** Disabled button — used for disabled-state assertion. */
-    @FindBy(css = "#buttons button[disabled]")
+    /** Disabled button — matched by visible text; always has disabled attribute. */
+    @FindBy(xpath = "//section[@id='buttons']//button[normalize-space()='Disabled Button']")
     private WebElement disabledButton;
 
     /** Submit Order action button. */
@@ -104,12 +104,32 @@ public class ButtonsSection {
     }
 
     /**
-     * Returns true if the disabled button is not enabled.
+     * Returns true if the Disabled Button is not enabled.
      *
-     * @return true when button is disabled
+     * @return true when button carries the disabled attribute
      */
     public boolean isDisabled() {
         wait.until(ExpectedConditions.visibilityOf(disabledButton));
         return !disabledButton.isEnabled();
+    }
+
+    /**
+     * Returns true if the Primary Button is enabled and visible.
+     *
+     * @return true when button is interactable
+     */
+    public boolean isPrimaryEnabled() {
+        wait.until(ExpectedConditions.visibilityOf(primaryButton));
+        return primaryButton.isEnabled();
+    }
+
+    /**
+     * Returns true if the Danger Button is enabled and visible.
+     *
+     * @return true when button is interactable
+     */
+    public boolean isDangerEnabled() {
+        wait.until(ExpectedConditions.visibilityOf(dangerButton));
+        return dangerButton.isEnabled();
     }
 }

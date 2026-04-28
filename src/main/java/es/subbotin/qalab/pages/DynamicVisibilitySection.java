@@ -23,8 +23,8 @@ public class DynamicVisibilitySection {
     @FindBy(css = "#dynamic-visibility input[type='checkbox']")
     private WebElement toggleCheckbox;
 
-    /** Panel that appears when the checkbox is checked. */
-    @FindBy(css = "#dynamic-visibility .secret-panel, #dynamic-visibility [id*='secret'], #dynamic-visibility [id*='panel']")
+    /** Panel revealed when checkbox is checked — located by its known text content. */
+    @FindBy(xpath = "//*[@id='dynamic-visibility']//*[contains(text(),'Secret panel revealed')]")
     private WebElement secretPanel;
 
     /**

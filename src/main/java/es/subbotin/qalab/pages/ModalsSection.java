@@ -19,20 +19,20 @@ public class ModalsSection {
     /** Explicit wait configured from config.properties. */
     private final WebDriverWait wait;
 
-    /** Button that opens the modal dialog. */
-    @FindBy(css = "#alerts .btn-primary")
+    /** Button that opens the modal dialog — matched by exact visible text. */
+    @FindBy(xpath = "//button[normalize-space()='Open Modal']")
     private WebElement openModalButton;
 
-    /** Confirm button inside the modal. */
-    @FindBy(css = "#alerts .modal .btn-primary, #alerts .modal-footer .btn-primary")
+    /** Confirm button inside the open modal — matched by visible text. */
+    @FindBy(xpath = "//div[contains(@class,'modal')]//button[normalize-space()='Confirm']")
     private WebElement confirmButton;
 
-    /** Cancel / close button inside the modal. */
-    @FindBy(css = "#alerts .modal .btn-secondary, #alerts .modal-footer .btn-secondary")
+    /** Cancel button inside the open modal — matched by visible text. */
+    @FindBy(xpath = "//div[contains(@class,'modal')]//button[normalize-space()='Cancel']")
     private WebElement cancelButton;
 
-    /** Modal dialog container — used to assert visibility. */
-    @FindBy(css = "#alerts .modal")
+    /** Modal dialog container — matched broadly; Bootstrap may inject it into body. */
+    @FindBy(css = ".modal")
     private WebElement modalContainer;
 
     /**
@@ -84,11 +84,20 @@ public class ModalsSection {
 
     /**
      * Returns the modal container element for assertion in test.
+     * Waits for visibility before returning — suitable after open().
      *
      * @return modal WebElement
      */
     public WebElement getModalContainer() {
         wait.until(ExpectedConditions.visibilityOf(modalContainer));
         return modalContainer;
+    }
+
+    /**
+     * Waits until the modal container is no longer visible.
+     * Call after confirm() or cancel() to synchronise before assertion.
+     */
+    public void waitForModalClosed() {
+        wait.until(ExpectedConditions.invisibilityOf(modalContainer));
     }
 }

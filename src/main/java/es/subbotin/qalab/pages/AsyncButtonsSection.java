@@ -19,12 +19,12 @@ public class AsyncButtonsSection {
     /** Explicit wait configured from config.properties. */
     private final WebDriverWait wait;
 
-    /** Button that triggers an async operation. */
-    @FindBy(css = "#async-buttons button")
+    /** Async action button — matched by exact visible text from the live page. */
+    @FindBy(xpath = "//button[normalize-space()='Claim Your Prize']")
     private WebElement asyncButton;
 
-    /** Status element that displays loading / success / error text. */
-    @FindBy(css = "#async-buttons .status, #async-buttons [class*='status'], #async-buttons [id*='status']")
+    /** Status element that shows loading / success / error feedback text. */
+    @FindBy(css = "#async-buttons .status, #async-buttons [class*='status'], #async-buttons [id*='status'], #async-buttons p, #async-buttons span")
     private WebElement statusElement;
 
     /**

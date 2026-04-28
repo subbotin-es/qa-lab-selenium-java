@@ -94,6 +94,21 @@ public class DropdownsSection {
     }
 
     /**
+     * Deselects all options in the multi-select, then selects by visible text.
+     * Use this when option value attributes are unknown.
+     *
+     * @param texts array of visible text labels to select
+     */
+    public void multiSelectByTexts(String... texts) {
+        wait.until(ExpectedConditions.visibilityOf(multiSelect));
+        Select select = new Select(multiSelect);
+        select.deselectAll();
+        for (String text : texts) {
+            select.selectByVisibleText(text);
+        }
+    }
+
+    /**
      * Returns all selected options in the multi-select for assertion in test.
      *
      * @return list of selected WebElements
