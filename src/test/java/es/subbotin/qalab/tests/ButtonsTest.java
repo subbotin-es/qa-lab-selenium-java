@@ -15,7 +15,7 @@ public class ButtonsTest extends BaseTest {
      * Disabled Button must carry the HTML disabled attribute.
      * Verifies the Page Object correctly reads the element state.
      */
-    @Test(groups = {"smoke", "regression"})
+    @Test(groups = {"smoke", "regression"}, description = "Disabled Button carries the HTML disabled attribute")
     public void disabledButtonIsNotEnabled() {
         ButtonsSection buttons = new ButtonsSection(getDriver());
         Assert.assertTrue(buttons.isDisabled(),
@@ -25,7 +25,7 @@ public class ButtonsTest extends BaseTest {
     /**
      * Primary Button must be visible and interactable.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Primary Button is visible and interactable")
     public void primaryButtonIsEnabled() {
         ButtonsSection buttons = new ButtonsSection(getDriver());
         Assert.assertTrue(buttons.isPrimaryEnabled(),
@@ -35,7 +35,7 @@ public class ButtonsTest extends BaseTest {
     /**
      * Danger Button must be visible and interactable.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Danger Button is visible and interactable")
     public void dangerButtonIsEnabled() {
         ButtonsSection buttons = new ButtonsSection(getDriver());
         Assert.assertTrue(buttons.isDangerEnabled(),
@@ -45,7 +45,7 @@ public class ButtonsTest extends BaseTest {
     /**
      * Clicking Primary Button should not navigate the page away.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Clicking Primary Button does not navigate away from qa-lab.html")
     public void clickPrimaryButtonStaysOnPage() {
         ButtonsSection buttons = new ButtonsSection(getDriver());
         buttons.clickPrimary();
@@ -56,7 +56,7 @@ public class ButtonsTest extends BaseTest {
     /**
      * Clicking Danger Button should not navigate the page away.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Clicking Danger Button does not navigate away from qa-lab.html")
     public void clickDangerButtonStaysOnPage() {
         ButtonsSection buttons = new ButtonsSection(getDriver());
         buttons.clickDanger();

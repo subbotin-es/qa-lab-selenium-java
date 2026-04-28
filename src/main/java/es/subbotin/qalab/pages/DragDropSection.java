@@ -25,12 +25,12 @@ public class DragDropSection {
     /** Explicit wait configured from config.properties. */
     private final WebDriverWait wait;
 
-    /** Draggable item element. */
-    @FindBy(css = "#drag-drop .draggable, #drag-drop [draggable='true']")
+    /** First draggable item — id="drag-1", class="drag-item". */
+    @FindBy(id = "drag-1")
     private WebElement draggable;
 
-    /** Drop zone target element. */
-    @FindBy(css = "#drag-drop .droppable, #drag-drop .drop-zone, #drag-drop .dropzone")
+    /** Drop zone target — id="drag-target". */
+    @FindBy(id = "drag-target")
     private WebElement dropZone;
 
     /** Range slider input. */

@@ -1,6 +1,7 @@
 package es.subbotin.qalab.pages;
 
 import es.subbotin.qalab.config.ConfigReader;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,27 +13,32 @@ import java.time.Duration;
 
 /**
  * Page object for the Alerts and Modals section (#alerts).
- * Covers modal open, confirm, cancel, and dismiss.
+ * Modal: id="test-modal", visibility controlled via style.display none/block.
+ * Buttons: id="open-modal", id="modal-confirm", id="modal-cancel".
  */
 public class ModalsSection {
 
     /** Explicit wait configured from config.properties. */
     private final WebDriverWait wait;
 
-    /** Button that opens the modal dialog — matched by exact visible text. */
-    @FindBy(xpath = "//button[normalize-space()='Open Modal']")
+    /** Button that opens the modal dialog. */
+    @FindBy(id = "open-modal")
     private WebElement openModalButton;
 
-    /** Confirm button inside the open modal — matched by visible text. */
-    @FindBy(xpath = "//div[contains(@class,'modal')]//button[normalize-space()='Confirm']")
+    /** Confirm button inside the modal dialog. */
+    @FindBy(id = "modal-confirm")
     private WebElement confirmButton;
 
-    /** Cancel button inside the open modal — matched by visible text. */
-    @FindBy(xpath = "//div[contains(@class,'modal')]//button[normalize-space()='Cancel']")
+    /** Cancel button inside the modal dialog. */
+    @FindBy(id = "modal-cancel")
     private WebElement cancelButton;
 
-    /** Modal dialog container — matched broadly; Bootstrap may inject it into body. */
-    @FindBy(css = ".modal")
+    /** X close button inside the modal dialog. */
+    @FindBy(id = "close-modal")
+    private WebElement closeButton;
+
+    /** Modal dialog container — hidden via style.display:none when closed. */
+    @FindBy(id = "test-modal")
     private WebElement modalContainer;
 
     /**
@@ -70,6 +76,14 @@ public class ModalsSection {
     }
 
     /**
+     * Clicks the X close button inside the open modal.
+     */
+    public void close() {
+        wait.until(ExpectedConditions.elementToBeClickable(closeButton));
+        closeButton.click();
+    }
+
+    /**
      * Returns true if the modal container is currently visible.
      *
      * @return true when modal is displayed
@@ -95,9 +109,10 @@ public class ModalsSection {
 
     /**
      * Waits until the modal container is no longer visible.
+     * Uses a fresh element locator to avoid stale proxy reference after display:none.
      * Call after confirm() or cancel() to synchronise before assertion.
      */
     public void waitForModalClosed() {
-        wait.until(ExpectedConditions.invisibilityOf(modalContainer));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("test-modal")));
     }
 }

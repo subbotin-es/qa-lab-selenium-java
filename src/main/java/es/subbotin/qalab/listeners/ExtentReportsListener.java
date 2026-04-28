@@ -38,12 +38,17 @@ public class ExtentReportsListener implements ITestListener {
 
     /**
      * Creates a new test entry in the report.
+     * Uses @Test(description) when provided, falls back to method name.
      *
      * @param result TestNG result
      */
     @Override
     public void onTestStart(ITestResult result) {
-        ExtentTest test = extent.createTest(result.getMethod().getMethodName());
+        String description = result.getMethod().getDescription();
+        String name = (description != null && !description.isEmpty())
+                ? description
+                : result.getMethod().getMethodName();
+        ExtentTest test = extent.createTest(name);
         TEST_HOLDER.set(test);
     }
 

@@ -16,7 +16,7 @@ public class CheckboxesTest extends BaseTest {
     /**
      * An unchecked checkbox should become checked after calling check().
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Unchecked checkbox becomes checked after check()")
     public void checkboxCanBeChecked() {
         CheckboxesSection checkboxes = new CheckboxesSection(getDriver());
         checkboxes.uncheck(0);
@@ -28,7 +28,7 @@ public class CheckboxesTest extends BaseTest {
     /**
      * A checked checkbox should become unchecked after calling uncheck().
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Checked checkbox becomes unchecked after uncheck()")
     public void checkboxCanBeUnchecked() {
         CheckboxesSection checkboxes = new CheckboxesSection(getDriver());
         checkboxes.check(1);
@@ -40,7 +40,7 @@ public class CheckboxesTest extends BaseTest {
     /**
      * Option 3 is pre-checked by the page — must be selected on initial load.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Option 3 is pre-checked by the page on initial load")
     public void option3IsPreCheckedByDefault() {
         CheckboxesSection checkboxes = new CheckboxesSection(getDriver());
         Assert.assertTrue(checkboxes.isChecked(2),
@@ -50,7 +50,7 @@ public class CheckboxesTest extends BaseTest {
     /**
      * Option 4 carries the HTML disabled attribute — must not be interactable.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Option 4 carries the HTML disabled attribute")
     public void option4IsDisabled() {
         CheckboxesSection checkboxes = new CheckboxesSection(getDriver());
         Assert.assertTrue(checkboxes.isCheckboxDisabled(3),
@@ -60,7 +60,7 @@ public class CheckboxesTest extends BaseTest {
     /**
      * Clicking a radio button should select it.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Clicking a radio button selects it")
     public void radioButtonCanBeSelected() {
         CheckboxesSection checkboxes = new CheckboxesSection(getDriver());
         checkboxes.selectRadio(0);
@@ -71,7 +71,7 @@ public class CheckboxesTest extends BaseTest {
     /**
      * Selecting a second radio should deselect the first — mutual exclusivity.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Selecting a second radio deselects the first — mutual exclusivity")
     public void radioButtonsMutuallyExclusive() {
         CheckboxesSection checkboxes = new CheckboxesSection(getDriver());
         checkboxes.selectRadio(0);

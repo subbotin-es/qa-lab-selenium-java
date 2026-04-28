@@ -15,7 +15,7 @@ public class DynamicVisibilityTest extends BaseTest {
     /**
      * Secret panel must be hidden on initial page load.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Secret panel is hidden before the checkbox is checked")
     public void panelIsHiddenOnPageLoad() {
         DynamicVisibilitySection dynVis = new DynamicVisibilitySection(getDriver());
         Assert.assertFalse(dynVis.isPanelVisible(),
@@ -25,7 +25,7 @@ public class DynamicVisibilityTest extends BaseTest {
     /**
      * Checking the checkbox must reveal the secret panel.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Checking the checkbox reveals the secret panel")
     public void panelBecomesVisibleWhenCheckboxChecked() {
         DynamicVisibilitySection dynVis = new DynamicVisibilitySection(getDriver());
         dynVis.showPanel();
@@ -36,7 +36,7 @@ public class DynamicVisibilityTest extends BaseTest {
     /**
      * Unchecking the checkbox must hide the secret panel again.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Unchecking the checkbox hides the secret panel again")
     public void panelHidesWhenCheckboxUnchecked() {
         DynamicVisibilitySection dynVis = new DynamicVisibilitySection(getDriver());
         dynVis.showPanel();
@@ -48,7 +48,7 @@ public class DynamicVisibilityTest extends BaseTest {
     /**
      * Toggle checkbox state must match its visual checked/unchecked appearance.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Toggle checkbox state matches the panel visible/hidden state")
     public void toggleCheckboxStateIsConsistent() {
         DynamicVisibilitySection dynVis = new DynamicVisibilitySection(getDriver());
         dynVis.showPanel();

@@ -14,7 +14,7 @@ public class IFrameTest extends BaseTest {
     /**
      * A heading must be readable from inside the iframe.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "A heading element is readable from inside the iframe")
     public void iFrameContainsHeading() {
         IFrameSection iframe = new IFrameSection(getDriver());
         String heading = iframe.getInnerHeadingText();
@@ -27,7 +27,7 @@ public class IFrameTest extends BaseTest {
      * If context were still inside the frame, getCurrentUrl() would throw or return
      * the frame src URL — this verifies the defaultContent() switch occurred.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Driver returns to main document context after iframe interaction")
     public void returnsToMainContextAfterFrameInteraction() {
         IFrameSection iframe = new IFrameSection(getDriver());
         iframe.getInnerHeadingText();
@@ -38,7 +38,7 @@ public class IFrameTest extends BaseTest {
     /**
      * Explicit switchToDefault() must leave the driver in the main document context.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "switchToDefault() restores the main document context")
     public void switchToDefaultRestoresMainContext() {
         IFrameSection iframe = new IFrameSection(getDriver());
         iframe.switchToFrame();

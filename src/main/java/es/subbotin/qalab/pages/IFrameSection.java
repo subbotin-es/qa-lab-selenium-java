@@ -22,8 +22,8 @@ public class IFrameSection {
     /** Explicit wait configured from config.properties. */
     private final WebDriverWait wait;
 
-    /** Locator for the iframe inside the iframes section. */
-    private static final By IFRAME_LOCATOR = By.cssSelector("#iframes iframe");
+    /** Locator for the iframe — id="lab-iframe" inside section #iframes. */
+    private static final By IFRAME_LOCATOR = By.id("lab-iframe");
 
     /**
      * Initialises section with driver. No Page Factory — frame switching is driver-level.
@@ -52,7 +52,7 @@ public class IFrameSection {
     public String getInnerHeadingText() {
         switchToFrame();
         WebElement heading = wait.until(
-            ExpectedConditions.visibilityOfElementLocated(By.cssSelector("h1, h2, h3"))
+            ExpectedConditions.visibilityOfElementLocated(By.tagName("h4"))
         );
         String text = heading.getText();
         driver.switchTo().defaultContent();

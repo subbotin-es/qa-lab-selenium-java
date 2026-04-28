@@ -15,7 +15,7 @@ public class DragDropTest extends BaseTest {
     /**
      * Draggable element must be visible before attempting the drag.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Draggable element is visible before the drag operation")
     public void draggableElementIsVisible() {
         DragDropSection dragDrop = new DragDropSection(getDriver());
         Assert.assertTrue(dragDrop.getDraggable().isDisplayed(),
@@ -25,7 +25,7 @@ public class DragDropTest extends BaseTest {
     /**
      * Drop zone must be visible as a valid target.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Drop zone is visible as a valid drop target")
     public void dropZoneIsVisible() {
         DragDropSection dragDrop = new DragDropSection(getDriver());
         Assert.assertTrue(dragDrop.getDropZone().isDisplayed(),
@@ -36,7 +36,7 @@ public class DragDropTest extends BaseTest {
      * Performing a drag-and-drop should not throw and should leave the
      * drop zone still visible in the DOM.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Drag-and-drop completes without error and drop zone remains visible")
     public void canDragItemToDropZone() {
         DragDropSection dragDrop = new DragDropSection(getDriver());
         dragDrop.dragItem();

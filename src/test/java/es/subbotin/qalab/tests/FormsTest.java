@@ -17,6 +17,7 @@ public class FormsTest extends BaseTest {
      * Verifies the Page Object correctly types into and reads from inputs.
      */
     @Test(groups = {"smoke", "regression"},
+          description = "Registration form fields accept and retain valid input",
           dataProvider = "validFormData",
           dataProviderClass = FormDataProvider.class)
     public void formFieldsAcceptValidInput(String fullName, String email, int age, String phone) {
@@ -32,6 +33,7 @@ public class FormsTest extends BaseTest {
      * Submitting a valid form should not navigate the page away from qa-lab.html.
      */
     @Test(groups = {"regression"},
+          description = "Submitting a valid form does not navigate away from qa-lab.html",
           dataProvider = "validFormData",
           dataProviderClass = FormDataProvider.class)
     public void submitFormDoesNotNavigateAway(String fullName, String email, int age, String phone) {

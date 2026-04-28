@@ -14,7 +14,7 @@ public class AsyncButtonsTest extends BaseTest {
     /**
      * Async button must be visible and enabled before interaction.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Async button is visible and enabled on page load")
     public void asyncButtonIsEnabledOnPageLoad() {
         AsyncButtonsSection async = new AsyncButtonsSection(getDriver());
         Assert.assertTrue(async.getAsyncButton().isDisplayed(),
@@ -29,11 +29,11 @@ public class AsyncButtonsTest extends BaseTest {
      * and may vary across runs — this test waits for any text containing "Success".
      * Adjust expectedState if the live page uses different wording.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Clicking async button transitions to success state")
     public void asyncButtonProducesSuccessState() {
         AsyncButtonsSection async = new AsyncButtonsSection(getDriver());
         async.click();
-        String status = async.waitForState("Success");
+        String status = async.waitForState("success");
         Assert.assertFalse(status.isEmpty(),
             "Status text should not be empty after async operation completes");
     }

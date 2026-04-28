@@ -14,7 +14,7 @@ public class InputsTest extends BaseTest {
     /**
      * Text input should retain the typed value.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Text input retains the typed value")
     public void textInputAcceptsValue() {
         InputsSection inputs = new InputsSection(getDriver());
         inputs.fillText("Hello World");
@@ -25,7 +25,7 @@ public class InputsTest extends BaseTest {
     /**
      * Number input should retain the typed numeric value.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Number input retains the typed numeric value")
     public void numberInputAcceptsValue() {
         InputsSection inputs = new InputsSection(getDriver());
         inputs.fillNumber("42");
@@ -36,7 +36,7 @@ public class InputsTest extends BaseTest {
     /**
      * Date input should retain the typed date string.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Date input is non-empty after setting a date value")
     public void dateInputAcceptsValue() {
         InputsSection inputs = new InputsSection(getDriver());
         inputs.fillDate("2024-06-15");
@@ -47,7 +47,7 @@ public class InputsTest extends BaseTest {
     /**
      * Search input should retain the typed search query.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Search input retains the typed search query")
     public void searchInputAcceptsValue() {
         InputsSection inputs = new InputsSection(getDriver());
         inputs.fillSearch("selenium");
@@ -58,7 +58,7 @@ public class InputsTest extends BaseTest {
     /**
      * URL input should retain the typed URL.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "URL input retains the typed URL value")
     public void urlInputAcceptsValue() {
         InputsSection inputs = new InputsSection(getDriver());
         inputs.fillUrl("https://example.com");

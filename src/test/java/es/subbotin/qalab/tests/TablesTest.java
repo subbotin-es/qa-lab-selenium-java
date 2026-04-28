@@ -15,7 +15,7 @@ public class TablesTest extends BaseTest {
     /**
      * Table must contain exactly 3 sample data rows.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Table contains exactly 3 sample data rows")
     public void tableHasThreeRows() {
         TablesSection tables = new TablesSection(getDriver());
         Assert.assertEquals(tables.getRowCount(), 3,
@@ -25,7 +25,7 @@ public class TablesTest extends BaseTest {
     /**
      * Name column in the first row must not be empty.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Name column in row 1 is not empty")
     public void firstRowNameCellHasContent() {
         TablesSection tables = new TablesSection(getDriver());
         String nameCell = tables.getCellText(1, 2);
@@ -36,7 +36,7 @@ public class TablesTest extends BaseTest {
     /**
      * Email column in the first row must contain an at-sign.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Email column in row 1 contains a valid email address")
     public void firstRowEmailCellContainsAtSign() {
         TablesSection tables = new TablesSection(getDriver());
         String emailCell = tables.getCellText(1, 3);
@@ -47,7 +47,7 @@ public class TablesTest extends BaseTest {
     /**
      * Each of the 3 rows must have a non-empty ID cell.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "All table rows have a non-empty ID cell")
     public void allRowsHaveNonEmptyId() {
         TablesSection tables = new TablesSection(getDriver());
         int rowCount = tables.getRowCount();

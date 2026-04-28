@@ -15,7 +15,7 @@ public class DropdownsTest extends BaseTest {
     /**
      * Single-select should reflect the chosen country.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Single-select reflects the chosen country option")
     public void singleSelectReflectsChoice() {
         DropdownsSection dropdowns = new DropdownsSection(getDriver());
         dropdowns.selectByText("Canada");
@@ -26,7 +26,7 @@ public class DropdownsTest extends BaseTest {
     /**
      * Choosing a different country should replace the previous selection.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Single-select updates to reflect the most recent selection")
     public void singleSelectCanBeChanged() {
         DropdownsSection dropdowns = new DropdownsSection(getDriver());
         dropdowns.selectByText("United Kingdom");
@@ -38,7 +38,7 @@ public class DropdownsTest extends BaseTest {
     /**
      * Multi-select should hold exactly the two chosen options.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Multi-select holds exactly two chosen options simultaneously")
     public void multiSelectCanSelectTwoOptions() {
         DropdownsSection dropdowns = new DropdownsSection(getDriver());
         dropdowns.multiSelectByTexts("Testing", "Design");
@@ -49,7 +49,7 @@ public class DropdownsTest extends BaseTest {
     /**
      * deselectAll inside multiSelectByTexts should clear prior selections first.
      */
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression"}, description = "Multi-select replaces prior selection when called again")
     public void multiSelectReplacesExistingSelection() {
         DropdownsSection dropdowns = new DropdownsSection(getDriver());
         dropdowns.multiSelectByTexts("Programming", "Marketing");

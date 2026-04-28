@@ -13,18 +13,20 @@ import java.time.Duration;
 /**
  * Page object for the Async Buttons section (#async-buttons).
  * Covers loading → success/error state transitions without Thread.sleep().
+ * Button: #btn-async-success ("Submit Order") — data-state: idle → loading → success.
+ * Status text: #async-status (aria-live region updated after each transition).
  */
 public class AsyncButtonsSection {
 
     /** Explicit wait configured from config.properties. */
     private final WebDriverWait wait;
 
-    /** Async action button — matched by exact visible text from the live page. */
-    @FindBy(xpath = "//button[normalize-space()='Claim Your Prize']")
+    /** Submit Order button — tracks state via data-state attribute. */
+    @FindBy(id = "btn-async-success")
     private WebElement asyncButton;
 
-    /** Status element that shows loading / success / error feedback text. */
-    @FindBy(css = "#async-buttons .status, #async-buttons [class*='status'], #async-buttons [id*='status'], #async-buttons p, #async-buttons span")
+    /** Status/result text element updated by the async operation. */
+    @FindBy(id = "async-status")
     private WebElement statusElement;
 
     /**
@@ -46,15 +48,16 @@ public class AsyncButtonsSection {
     }
 
     /**
-     * Waits until the status element contains the expected text, then returns it.
-     * Uses WebDriverWait — no Thread.sleep().
+     * Waits until the button's data-state attribute equals the expected state,
+     * then returns the button text. Uses WebDriverWait — no Thread.sleep().
+     * Expected values: "loading", "success", "error".
      *
-     * @param expectedText text to wait for (e.g. "Success", "Error")
-     * @return actual status text once condition is met
+     * @param expectedState data-state attribute value to wait for (e.g. "success")
+     * @return button text once the state is reached (e.g. "Order Confirmed")
      */
-    public String waitForState(String expectedText) {
-        wait.until(ExpectedConditions.textToBePresentInElement(statusElement, expectedText));
-        return statusElement.getText();
+    public String waitForState(String expectedState) {
+        wait.until(ExpectedConditions.attributeToBe(asyncButton, "data-state", expectedState));
+        return asyncButton.getText();
     }
 
     /**
@@ -67,21 +70,12 @@ public class AsyncButtonsSection {
     }
 
     /**
-     * Returns the status element for assertion in test.
-     *
-     * @return status WebElement
-     */
-    public WebElement getStatusElement() {
-        wait.until(ExpectedConditions.visibilityOf(statusElement));
-        return statusElement;
-    }
-
-    /**
      * Returns the async button element for assertion in test.
      *
      * @return async button WebElement
      */
     public WebElement getAsyncButton() {
+        wait.until(ExpectedConditions.visibilityOf(asyncButton));
         return asyncButton;
     }
 }
