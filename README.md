@@ -114,12 +114,13 @@ Report is generated at `test-output/ExtentReports/report.html`.
 
 All four stacks automate the same target — [subbotin.es/QA-Lab/qa-lab.html](https://subbotin.es/QA-Lab/qa-lab.html) — enabling a direct comparison of tooling decisions.
 
-| Stack | Technology              | Repository                                                                        |
-|-------|-------------------------|-----------------------------------------------------------------------------------|
-| 1     | Playwright + TypeScript | [qa-lab-playwright-ts](https://github.com/subbotin-es/qa-lab-playwright-ts)       |
-| 2     | Pytest + Python         | [qa-lab-pytest-python](https://github.com/subbotin-es/qa-lab-pytest-python)       |
-| **3** | **Selenium + Java**     | **[qa-lab-selenium-java](https://github.com/subbotin-es/qa-lab-selenium-java)**   |
-| 4     | Cypress + JavaScript    | [qa-lab-cypress-js](https://github.com/subbotin-es/qa-lab-cypress-js)             |
+| # | Stack | Repo |
+|---|---|---|
+| 1 | Playwright + TypeScript | coming soon |
+| 2 | Pytest + Python + Allure  | [qa-lab-pytest-python](https://github.com/subbotin-es/qa-lab-pytest-python) |
+| 3 | **Selenium + Java + TestNG** <-This repo | [qa-lab-selenium-java](https://github.com/subbotin-es/qa-lab-selenium-java) |
+| 4 | Cypress + JavaScript | coming soon |
+| 5 | Playwright + C# + NUnit | [qa-lab-playwright-csharp](https://github.com/subbotin-es/qa-lab-playwright-csharp)        |
 
 ---
 
