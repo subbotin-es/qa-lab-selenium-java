@@ -38,6 +38,7 @@ Target: [subbotin.es/QA-Lab/qa-lab.html](https://subbotin.es/QA-Lab/qa-lab.html)
 | Language          | Java                | 17 LTS   | LTS release, widely deployed in enterprise             |
 | Lint / style      | Checkstyle          | 10.x     | Enforces code style expected in enterprise teams       |
 | CI/CD             | GitHub Actions      | current  | Free 2 000 min/month                                   |
+| Performance       | Gatling             | 3.11.5   | Java DSL, Maven plugin — zero toolchain friction       |
 
 ---
 
@@ -53,9 +54,18 @@ mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testng-smoke.xml
 
 # 3. Run the full regression suite
 mvn test
+
+# 4. Run Gatling smoke simulation (SLO check)
+mvn test-compile gatling:test -Pperformance \
+  -Dgatling.simulationClass=simulations.QALabSmokeSimulation
+
+# 5. Run Gatling baseline simulation
+mvn test-compile gatling:test -Pperformance \
+  -Dgatling.simulationClass=simulations.QALabBaselineSimulation
 ```
 
-Report is generated at `test-output/ExtentReports/report.html`.
+Functional report: `test-output/ExtentReports/report.html`
+Gatling report: `performance/target/gatling/<timestamp>/index.html`
 
 **Prerequisites:** Java 17, Maven 3.9+, Chrome installed (WebDriverManager downloads chromedriver automatically).
 
@@ -78,6 +88,34 @@ Report is generated at `test-output/ExtentReports/report.html`.
 | IFrames             | switchTo().frame() / switchTo().defaultContent()         |
 | Drag & Drop         | Actions class mouse simulation                           |
 | Slider              | Actions.dragAndDropBy() — pixel-to-value mapping         |
+
+---
+
+## Performance Testing
+
+Gatling 3.11 is embedded as a Maven profile (`-Pperformance`), keeping it fully isolated from the TestNG test suite. The performance job runs in CI after all functional tests pass.
+
+**Gatling HTML report** is uploaded as a CI artifact on every run (14-day retention) — download from the [Actions tab](https://github.com/subbotin-es/qa-lab-selenium-java/actions).
+
+### Simulations
+
+| Simulation | Load profile | SLO assertions |
+|---|---|---|
+| `QALabSmokeSimulation` | Ramp 5 VU over 10 s → hold 5 VU/s for 20 s | p95 < 500 ms, p99 < 1 000 ms, errors < 1% |
+| `QALabBaselineSimulation` | Ramp 10 VU over 15 s → hold 10 VU/s for 45 s | p95 < 500 ms, p99 < 1 000 ms, errors < 1%, success > 99% |
+| `QALabColdWarmSimulation` | 1 VU, 2 sequential requests | cold\_hit p95 < 1 500 ms, warm\_hit p95 < 200 ms |
+
+### Observed CI results (CloudFront edge, GitHub Actions ubuntu-latest)
+
+| Metric | Smoke | Baseline |
+|---|---|---|
+| p75 response time | ~15 ms | ~24 ms |
+| p95 response time | ~20 ms | ~27 ms |
+| p99 response time | ~25 ms | ~32 ms |
+| Error rate | < 1% | < 1% |
+| All SLOs passed | Yes | Yes |
+
+> Response times reflect CloudFront edge-cache delivery of a static page (~50 KB HTML + JS). They measure CDN serving speed, not application performance. See [performance/FINDINGS.md](performance/FINDINGS.md) for full analysis, assumptions, and limitations.
 
 ---
 
