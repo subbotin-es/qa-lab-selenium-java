@@ -115,7 +115,7 @@ Gatling 3.11 is embedded as a Maven profile (`-Pperformance`), keeping it fully 
 | Error rate | < 1% | < 1% |
 | All SLOs passed | Yes | Yes |
 
-> Response times reflect CloudFront edge-cache delivery of a static page (~50 KB HTML + JS). They measure CDN serving speed, not application performance. See [performance/FINDINGS.md](performance/FINDINGS.md) for full analysis, assumptions, and limitations.
+> Response times reflect CloudFront edge-cache delivery of a static page (~50 KB HTML + JS). They measure CDN serving speed, not application performance. See [FINDINGS.md](FINDINGS.md) for full analysis, assumptions, and limitations.
 
 ---
 
