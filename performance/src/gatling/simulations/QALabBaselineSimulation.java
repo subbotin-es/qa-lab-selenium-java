@@ -18,14 +18,14 @@ public class QALabBaselineSimulation extends Simulation {
 
     ScenarioBuilder baseline = scenario("QA Lab Baseline")
         .exec(
-            http("QA Lab main page")
+            http("QA Lab page - first load")
                 .get("/QA-Lab/qa-lab.html")
                 .check(status().is(200))
         )
-        .pause(1)
+        .pause(2)
         .exec(
-            http("QA Lab index")
-                .get("/QA-Lab/index.html")
+            http("QA Lab page - repeat load")
+                .get("/QA-Lab/qa-lab.html")
                 .check(status().is(200))
         )
         .pause(1);
