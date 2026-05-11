@@ -14,6 +14,7 @@ public class QALabSmokeSimulation extends Simulation {
 
     HttpProtocolBuilder httpProtocol = http
         .baseUrl(BASE_URL)
+        .disableCaching()
         .acceptHeader("text/html,application/xhtml+xml")
         .userAgentHeader("Gatling/3.x — QA Lab Performance Suite");
 

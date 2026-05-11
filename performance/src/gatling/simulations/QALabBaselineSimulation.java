@@ -14,7 +14,8 @@ public class QALabBaselineSimulation extends Simulation {
 
     HttpProtocolBuilder httpProtocol = http
         .baseUrl(BASE_URL)
-        .acceptHeader("text/html")
+        .disableCaching()
+        .acceptHeader("text/html,application/xhtml+xml")
         .userAgentHeader("Gatling/3.x — QA Lab Performance Suite");
 
     ScenarioBuilder baseline = scenario("QA Lab Baseline")

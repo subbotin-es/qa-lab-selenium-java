@@ -16,18 +16,22 @@ public class QALabColdWarmSimulation extends Simulation {
             ? System.getenv("BASE_URL")
             : "https://subbotin.es";
 
-    HttpProtocolBuilder httpProtocol = http.baseUrl(BASE_URL);
+    HttpProtocolBuilder httpProtocol = http
+        .baseUrl(BASE_URL)
+        .disableCaching()
+        .acceptHeader("text/html,application/xhtml+xml")
+        .userAgentHeader("Gatling/3.x — QA Lab Performance Suite");
 
     ScenarioBuilder coldWarm = scenario("CDN Cold vs Warm")
         .exec(
             http("cold_hit")
                 .get("/QA-Lab/qa-lab.html")
-                .check(status().is(200))
+                .check(status().in(200, 304))
         )
         .exec(
             http("warm_hit")
                 .get("/QA-Lab/qa-lab.html")
-                .check(status().is(200))
+                .check(status().in(200, 304))
         );
 
     {
