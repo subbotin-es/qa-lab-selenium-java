@@ -73,7 +73,7 @@ jobs:
 
       - name: Run Gatling smoke simulation
         run: |
-          mvn gatling:test -Pperformance \
+          mvn test-compile gatling:test -Pperformance \
             -Dgatling.simulationClass=simulations.QALabSmokeSimulation
         env:
           BASE_URL: https://subbotin.es
@@ -81,7 +81,7 @@ jobs:
       - name: Run Gatling baseline simulation (main only)
         if: github.ref == 'refs/heads/main'
         run: |
-          mvn gatling:test -Pperformance \
+          mvn test-compile gatling:test -Pperformance \
             -Dgatling.simulationClass=simulations.QALabBaselineSimulation
         env:
           BASE_URL: https://subbotin.es

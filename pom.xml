@@ -83,13 +83,30 @@
             <build>
                 <plugins>
                     <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>3.6.0</version>
+                        <executions>
+                            <execution>
+                                <id>add-gatling-sources</id>
+                                <phase>generate-test-sources</phase>
+                                <goals>
+                                    <goal>add-test-source</goal>
+                                </goals>
+                                <configuration>
+                                    <sources>
+                                        <source>performance/src/gatling/simulations</source>
+                                    </sources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
                         <groupId>io.gatling</groupId>
                         <artifactId>gatling-maven-plugin</artifactId>
                         <version>4.9.6</version>
                         <configuration>
-                            <simulationsFolder>performance/src/gatling/simulations</simulationsFolder>
                             <resultsFolder>performance/target/gatling</resultsFolder>
-                            <!-- Run only in this profile — never during mvn test -->
                             <runMultipleSimulations>false</runMultipleSimulations>
                         </configuration>
                     </plugin>
