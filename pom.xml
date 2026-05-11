@@ -68,4 +68,34 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>performance</id>
+            <dependencies>
+                <dependency>
+                    <groupId>io.gatling.highcharts</groupId>
+                    <artifactId>gatling-charts-highcharts</artifactId>
+                    <version>3.11.5</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.gatling</groupId>
+                        <artifactId>gatling-maven-plugin</artifactId>
+                        <version>4.9.6</version>
+                        <configuration>
+                            <simulationsFolder>performance/src/gatling/simulations</simulationsFolder>
+                            <resultsFolder>performance/target/gatling</resultsFolder>
+                            <!-- Run only in this profile — never during mvn test -->
+                            <runMultipleSimulations>false</runMultipleSimulations>
+                        </configuration>
+                    </plugin>
+                </plugins>
+                <testSourceDirectory>performance/src/gatling/simulations</testSourceDirectory>
+            </build>
+        </profile>
+    </profiles>
 </project>
