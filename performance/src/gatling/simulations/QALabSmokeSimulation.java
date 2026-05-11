@@ -22,7 +22,7 @@ public class QALabSmokeSimulation extends Simulation {
             http("QA Lab page")
                 .get("/QA-Lab/qa-lab.html")
                 .check(status().is(200))
-                .check(bodyString().contains("QA Lab"))
+                .check(substring("QA Lab").exists())
         )
         .pause(1);
 
