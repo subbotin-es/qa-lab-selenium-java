@@ -94,7 +94,6 @@
                         </configuration>
                     </plugin>
                 </plugins>
-                <testSourceDirectory>performance/src/gatling/simulations</testSourceDirectory>
             </build>
         </profile>
     </profiles>
